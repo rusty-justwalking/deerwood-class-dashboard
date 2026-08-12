@@ -1,0 +1,23 @@
+{
+  "source": "DWC Fall 2026.xlsx",
+  "sheetName": "Sheet1",
+  "rowCount": 192,
+  "warningCount": 3,
+  "warnings": [
+    {
+      "row": 6,
+      "code": "missing_instructor",
+      "message": "Instructor is missing; displayed as Staff TBA."
+    },
+    {
+      "row": 22,
+      "code": "missing_room",
+      "message": "Room is missing; displayed as TBA."
+    },
+    {
+      "row": 193,
+      "code": "missing_instructor",
+      "message": "Instructor is missing; displayed as Staff TBA."
+    }
+  ]
+}
