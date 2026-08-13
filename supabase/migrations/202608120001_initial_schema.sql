@@ -62,6 +62,9 @@ create table public.import_warnings (
 );
 
 create index schedule_classes_term_idx on public.schedule_classes(term_id);
+create index schedule_imports_term_idx on public.schedule_imports(term_id);
+create index schedule_classes_import_idx on public.schedule_classes(import_id);
+create index import_warnings_import_idx on public.import_warnings(import_id);
 create index schedule_classes_start_idx on public.schedule_classes(term_id, start_minutes);
 create index schedule_classes_days_idx on public.schedule_classes using gin(weekdays);
 create index schedule_classes_session_idx on public.schedule_classes(term_id, session_group);
@@ -72,10 +75,20 @@ alter table public.schedule_imports enable row level security;
 alter table public.schedule_classes enable row level security;
 alter table public.import_warnings enable row level security;
 
+revoke all privileges on all tables in schema public from anon, authenticated;
+revoke all privileges on all sequences in schema public from anon, authenticated;
+alter default privileges for role postgres in schema public revoke select, insert, update, delete on tables from anon, authenticated;
+alter default privileges for role postgres in schema public revoke usage, select on sequences from anon, authenticated;
+
 grant usage on schema public to anon, authenticated;
 grant select on public.academic_terms, public.schedule_classes to anon, authenticated;
+grant usage on schema public to service_role;
+grant select, insert, update, delete on public.academic_terms, public.schedule_imports, public.schedule_classes, public.import_warnings to service_role;
+grant usage, select on all sequences in schema public to service_role;
 
 create policy "Published terms are public" on public.academic_terms for select to anon, authenticated using (is_published = true);
 create policy "Published schedules are public" on public.schedule_classes for select to anon, authenticated using (
   exists (select 1 from public.academic_terms term where term.id = term_id and term.is_published = true)
 );
+create policy "Import records are private" on public.schedule_imports for all to anon, authenticated using (false) with check (false);
+create policy "Import warnings are private" on public.import_warnings for all to anon, authenticated using (false) with check (false);

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { BookOpen, Building2, CalendarDays, ChevronDown, Clock3, Download, GraduationCap, MapPin, Printer, Search, SlidersHorizontal, UserRound, X } from "lucide-react";
+import { BookOpen, Building2, CalendarDays, ChevronDown, Download, GraduationCap, MapPin, Printer, Search, SlidersHorizontal, UserRound, X } from "lucide-react";
 import { EMPTY_FILTERS, filterClasses } from "@/lib/filter";
 import { WEEKDAYS, type Filters, type ScheduleClass, type ScheduleData } from "@/lib/types";
 
