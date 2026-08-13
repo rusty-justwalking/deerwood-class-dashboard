@@ -1,4 +1,5 @@
 import seed from "@/data/fall-2026.json";
+import { toPublicScheduleData } from "@/lib/public-schedule";
 import { createAdminClient, hasSupabaseConfig } from "@/lib/supabase";
 import type { AcademicTerm, ScheduleClass, ScheduleData } from "@/lib/types";
 
@@ -17,7 +18,7 @@ const mapClass = (row: DbClass): ScheduleClass => ({
 });
 
 export async function getScheduleData(): Promise<ScheduleData> {
-  if (!hasSupabaseConfig()) return seed as ScheduleData;
+  if (!hasSupabaseConfig()) return toPublicScheduleData(seed as ScheduleData);
   try {
     const supabase = createAdminClient();
     const [{ data: termRows, error: termError }, { data: classRows, error: classError }] = await Promise.all([
@@ -26,9 +27,9 @@ export async function getScheduleData(): Promise<ScheduleData> {
     ]);
     if (termError || classError || !termRows?.length) throw termError ?? classError ?? new Error("No published terms");
     const publishedIds = new Set(termRows.map((term) => term.id));
-    return { terms: (termRows as DbTerm[]).map(mapTerm), classes: (classRows ?? []).filter((row) => publishedIds.has(row.term_id)).map(mapClass) };
+    return toPublicScheduleData({ terms: (termRows as DbTerm[]).map(mapTerm), classes: (classRows ?? []).filter((row) => publishedIds.has(row.term_id)).map(mapClass) });
   } catch (error) {
     console.error("Falling back to bundled Fall 2026 schedule:", error);
-    return seed as ScheduleData;
+    return toPublicScheduleData(seed as ScheduleData);
   }
 }

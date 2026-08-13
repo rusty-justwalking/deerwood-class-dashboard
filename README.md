@@ -4,7 +4,7 @@ A responsive public schedule dashboard and single-administrator import workflow 
 
 ## Version 1 capabilities
 
-- Fall 2026 is generated from the real `DWC Fall 2026.xlsx` workbook (192 rows).
+- Fall 2026 is generated from the real `DWC Fall 2026.xlsx` workbook (192 preserved rows; 191 on-campus rows in the public dashboard).
 - Instant universal search plus combinable term, session, weekday, start-time, instructor, course, and room filters.
 - Weekday summary cards, start-time activity chart, chronological class cards, and instructor/room drill-downs.
 - Filter-aware print layout and CSV export.
@@ -46,11 +46,11 @@ The importer reads the first worksheet and validates the expected FSCJ column na
 
 - `G701F16050` → `F1605`; `G701D14020` → `D1402`.
 - `M`, `T`, `W`, `R`, `F`, `S`, and combined patterns such as `MW`, `TR`, `WF` into explicit weekday arrays.
-- Session `1` into `Full Term`, `A`-prefixed codes into `A Session`, `B`-prefixed codes into `B Session`, and `C`-prefixed codes into `C Session`, while retaining the original code.
+- Session `1` and `A`-prefixed codes into `A Session`, `B`-prefixed codes into `B Session`, and `C`-prefixed codes into `C Session`, while retaining the original code.
 - Source strings such as `08.00.am` into sortable minutes and `8:00 AM` display values.
 - Excel serial dates into ISO dates.
 
-Malformed but usable rows are retained with warnings. The Fall workbook has three warnings: two missing instructors and one missing room. `ONLINE` is treated as a recognized location.
+Malformed but usable rows are retained with warnings. The Fall workbook has three warnings: two missing instructors and one missing room. `ONLINE` is treated as a recognized location, preserved during import, and excluded only from the public on-campus dashboard dataset.
 
 Regenerate the bundled dataset from the workbook in the parent folder:
 
