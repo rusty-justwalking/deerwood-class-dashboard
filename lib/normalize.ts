@@ -58,7 +58,8 @@ export function excelDateToIso(value: unknown): string {
 
 export function groupSession(value: unknown): string {
   const raw = text(value).toUpperCase();
-  if (raw === "1" || raw.startsWith("A")) return "A Session";
+  if (raw === "1") return "Full Term";
+  if (raw.startsWith("A")) return "A Session";
   if (raw.startsWith("B")) return "B Session";
   if (raw.startsWith("C")) return "C Session";
   return raw ? `${raw} Session` : "Unspecified";

@@ -46,7 +46,7 @@ The importer reads the first worksheet and validates the expected FSCJ column na
 
 - `G701F16050` → `F1605`; `G701D14020` → `D1402`.
 - `M`, `T`, `W`, `R`, `F`, `S`, and combined patterns such as `MW`, `TR`, `WF` into explicit weekday arrays.
-- Session `1` and `A`-prefixed codes into `A Session`, `B`-prefixed codes into `B Session`, and `C`-prefixed codes into `C Session`, while retaining the original code.
+- Session `1` into `Full Term`, `A`-prefixed codes into `A Session`, `B`-prefixed codes into `B Session`, and `C`-prefixed codes into `C Session`, while retaining the original code.
 - Source strings such as `08.00.am` into sortable minutes and `8:00 AM` display values.
 - Excel serial dates into ISO dates.
 

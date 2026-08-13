@@ -3,7 +3,7 @@ import { expandMeetingDays, groupSession, normalizeRoom, normalizeRow, normalize
 
 describe("session normalization", () => {
   it.each([
-    ["1", "A Session"],
+    ["1", "Full Term"],
     ["A7", "A Session"],
     ["A12", "A Session"],
     ["B12", "B Session"],
@@ -12,11 +12,11 @@ describe("session normalization", () => {
     expect(groupSession(raw)).toBe(group);
   });
 
-  it("preserves source session 1 while grouping it as A Session", () => {
+  it("preserves source session 1 while grouping it as Full Term", () => {
     const { normalized } = normalizeRow({ Session: 1 }, 2);
 
     expect(normalized.sessionRaw).toBe("1");
-    expect(normalized.sessionGroup).toBe("A Session");
+    expect(normalized.sessionGroup).toBe("Full Term");
   });
 });
 
