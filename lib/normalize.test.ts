@@ -1,5 +1,24 @@
 import { describe, expect, it } from "vitest";
-import { expandMeetingDays, normalizeRoom, normalizeTime } from "@/lib/normalize";
+import { expandMeetingDays, groupSession, normalizeRoom, normalizeRow, normalizeTime } from "@/lib/normalize";
+
+describe("session normalization", () => {
+  it.each([
+    ["1", "A Session"],
+    ["A7", "A Session"],
+    ["A12", "A Session"],
+    ["B12", "B Session"],
+    ["C7", "C Session"],
+  ])("groups source session %s as %s", (raw, group) => {
+    expect(groupSession(raw)).toBe(group);
+  });
+
+  it("preserves source session 1 while grouping it as A Session", () => {
+    const { normalized } = normalizeRow({ Session: 1 }, 2);
+
+    expect(normalized.sessionRaw).toBe("1");
+    expect(normalized.sessionGroup).toBe("A Session");
+  });
+});
 
 describe("room normalization", () => {
   it.each([["G701F16050", "F1605"], ["G701D14020", "D1402"], ["G701G27210", "G2721"]])("normalizes %s", (raw, display) => {
