@@ -4,7 +4,7 @@ A responsive public schedule dashboard and single-administrator import workflow 
 
 ## Version 1 capabilities
 
-- Fall 2026 is generated from the real `DWC Fall 2026.xlsx` workbook (192 preserved rows; 191 on-campus rows in the public dashboard).
+- Fall 2026 is generated from the completed `DWC-Fall-2026-Complete.xlsx` workbook (204 preserved rows; 203 on-campus rows in the public dashboard, including 12 ESOL classes).
 - Instant universal search plus combinable term, session, weekday, start-time, instructor, course, and room filters.
 - Weekday summary cards, start-time activity chart, chronological class cards, and instructor/room drill-downs.
 - Filter-aware print layout and CSV export.
